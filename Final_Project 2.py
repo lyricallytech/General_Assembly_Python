@@ -32,10 +32,10 @@ class Menu:
         menu_item = ["Jerk Chicken Breast", "Rasta Pasta", "Oxtail", "Jerk Salmon", "Roti", "Rice & Peas", "Macaroni Pie", "Cabbage", "Mashed Potatoes", "Sweet Plantain", "Rum Punch", "Fruit Punch", "Peach Mango Juice", "Guava Pineapple", "Bottled Water"]
         unit_price = [8.50, 12.00, 17.00, 13.00, 10.00, 6.00, 5.50, 3.50, 3.50, 3.50, 10.00, 5.50, 5.50, 5.50, 1.50]
         menu_number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-        menu_category = ["Main Dishes", "Side Dishes", "Beverages"]
+        menu_category = ["Main Dishes", "Main Dishes", "Main Dishes", "Main Dishes", "Main Dishes", "Side Dishes", "Side Dishes", "Side Dishes", "Side Dishes", "Side Dishes", "Beverages", "Beverages", "Beverages", "Beverages", "Beverages"]
         print("\n")
         for i in range(15):
-            print(f"#{menu_number[i]} {menu_item[i]} --- ${unit_price[i]:.2f}")
+            print(f"#{menu_number[i]} {menu_item[i]} --- ${unit_price[i]:.2f} --- {menu_category[i]}")
         print("\n")
 
 class Place_Order():
