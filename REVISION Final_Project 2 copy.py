@@ -91,7 +91,7 @@ class Place_Order():
                     print(f"{Order_Number_As_Integer} {menu_dictionary[Order_Number_As_Integer]['name']}")
                     order_list.append(Order_Number_As_Integer)
                 else:
-                    print("Not in dictionary")
+                    print("Not a menu item. Please enter again.")
             else:
                 Is_Order_Finished = True
         return order_list
