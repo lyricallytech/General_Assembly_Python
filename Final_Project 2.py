@@ -3,19 +3,6 @@
 # Welcome to 'Rïf's Caribbean Social! 
 # Your local favorite West Indian restaurant
 
-# Class #1: Menu
-    # Class #1 Methods:
-        # - Print Menu
-
-# Class #2: Place Order
-    # Class #2 Methods: 
-        # - Order Intake
-        # - List Order
-        # - Print Total
-        # - Apply Discount (Private Method)
-        # - Credit Card Payment
-    
-
 from typing import Counter, final
 from tabulate import tabulate
 import time
@@ -64,16 +51,12 @@ class Menu:
                     new_row.append(f"#{item + 10} - {menu_dictionary[item + 10]['name']}")
                     new_row.append("${:>6.2f}".format(menu_dictionary[item + 10]['price']))
                     formatted_table.append(new_row)
-            headers = ["MAIN DISHES", "Price", "SIDE DISHES", "Price", "BEVERAGES", " Price"]
+            headers = ["MAIN DISHES", "PRICE", "SIDE DISHES", "PRICE", "BEVERAGES", " PRICE"]
             print("\n",tabulate(formatted_table, headers, tablefmt="simple"))
             print("\n")
 
 
 class Place_Order():
-    def __init__(self, *args, **kwargs):
-        #self.__discount == discount
-        pass
-
     def Order_Intake():
         # Take the numbers and use the append method to add to a list
         order_list = []
@@ -100,55 +83,45 @@ class Place_Order():
     def List_Order(order_list):
         print("\n")
         sorted_list = sorted(order_list)
-        #print(sorted_list)
-        # Initial FOR loop for collating/deduping 
+        # Initial FOR loop for collating/de-duping 
         collated_list = {}
         for item in sorted_list:
-            #print(f"{item} {menu_dictionary[item]['name']} {menu_dictionary[item]['price']}")
             # IGNORE: This IF/ELSE is to calculate the quantity of the first for loop 
             if item in collated_list:
                 collated_list[item] = collated_list[item] + 1
-                #print(collated_list[item])
-                #print("Subsequent instance of this product")
             else:
                 collated_list[item] = 1
-                #print(collated_list[item])
-                #print("First instance of this product")
         # Second FOR loop for displaying the order of the items
         print("\n")
         sum = 0
         print("Ordered Items: ")
         for item in collated_list:
-            quantity = collated_list[item]
-            price = menu_dictionary[item]['price']
-            grand_total = quantity * price
-            grand_total_final = "{:.2f}".format(grand_total)
-            grand_total_final_as_int = float(grand_total_final)
+            order_quantity = collated_list[item]
+            unit_price = menu_dictionary[item]['price']
             unit_price_formatted = "{:.2f}".format(menu_dictionary[item]['price'])
-            print(f"{collated_list[item]}x - {menu_dictionary[item]['name']} - Unit Price: ${unit_price_formatted} - TOTAL: ${grand_total_final}")
-            sum = sum + grand_total_final_as_int
-            sum_formatted = "{:.2f}".format(sum)
+            row_total = order_quantity * unit_price
+            grand_total_string = "{:.2f}".format(row_total)
+            grand_total = grand_total_string
+            print(f"{collated_list[item]}x - {menu_dictionary[item]['name']} - Unit Price: ${unit_price_formatted} - TOTAL: ${grand_total}")
+            sum = sum + float(grand_total)
+            total_sum = "{:.2f}".format(sum)
         print("\n")
-        print("GRAND TOTAL: $", sum_formatted)
+        print("GRAND TOTAL: $", total_sum)
         print("\n")
 
 
     def Print_Total(self): 
         total = "TOTAL: ${:.2f}".format(self.order_total)
         print(total)
-        #print("\n")
-        #self.order_total
 
     def Apply_Discount(self):
         # 20% DISCOUNT
-        #print("Successful public method printed")
         self.__Apply_Discount()
 
 
     # PRIVATE METHOD
     def __Apply_Discount(self):
         # 20% DISCOUNT
-        #print("Successful private method printed")
         discount_total = self.order_total * .20
         discount_total = self.order_total - discount_total
         discount_total = "DISCOUNT TOTAL: ${:.2f}".format(discount_total)
@@ -167,7 +140,6 @@ class Place_Order():
             print("Pending...")
             time.sleep(1)
             print("Pending...")
-            #print("\n")
             time.sleep(2)
             print("Success - Charge Authorized")
             print("\n")
@@ -180,13 +152,11 @@ Menu = Menu()
 Menu.print_menu()
 
 Place_Order()
-#Place_Order.Order_Intake()
 
 Updated_Order_Intake = Place_Order.Order_Intake()
-#print(Updated_Order_Intake, "success")
 
 
-print("\n")
+#print("\n")
 ready_to_order = input("Review Order : (Y/N) ")
 while ready_to_order != "Y":
     ready_to_order = input("Review Order : (Y/N) ")
@@ -199,19 +169,16 @@ checkout_total = input("Checkout Total : (Y/N) ")
 try:
     while checkout_total != "Y":
         checkout_total = input("Checkout Total : (Y/N) ")
-    print("\n")
     #Place_Order = Place_Order()
-    Place_Order.Print_Total()
+    #Place_Order.Print_Total()
     discount_code = input("DISCOUNT CODE : ")
     if discount_code == "GA20":
         print("\n20% Discount Applied")
         Place_Order.Apply_Discount()
-        #print("\n")
         Place_Order.Credit_Card_Payment()
     elif discount_code != "GA20": 
         Place_Order.Print_Total()
         Place_Order.Credit_Card_Payment()
-        #print("\n")
 except ValueError:
     checkout_total = input("Checkout Total : ")
 
