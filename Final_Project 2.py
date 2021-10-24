@@ -56,8 +56,8 @@ class Menu:
             print("\n")
 
 
-class Place_Order():
-    def Order_Intake():
+class Order():
+    def Input_Order():
         # Take the numbers and use the append method to add to a list
         order_list = []
         Is_Order_Finished = False
@@ -79,7 +79,9 @@ class Place_Order():
                 Is_Order_Finished = True
         return order_list
         
-
+    # Takes order from input
+    # Lists out order and quantity
+    # Lastly prints the results and Grand Total in a neat format
     def List_Order(order_list):
         print("\n")
         sorted_list = sorted(order_list)
@@ -104,33 +106,26 @@ class Place_Order():
             grand_total = grand_total_string
             print(f"{collated_list[item]}x - {menu_dictionary[item]['name']} - Unit Price: ${unit_price_formatted} - TOTAL: ${grand_total}")
             sum = sum + float(grand_total)
-            total_sum = "{:.2f}".format(sum)
+            sub_total = "{:.2f}".format(sum)
         print("\n")
-        print("GRAND TOTAL: $", total_sum)
+        print("GRAND TOTAL: $", sub_total)
         print("\n")
+        return sub_total
 
 
-    def Print_Total(self): 
-        total = "TOTAL: ${:.2f}".format(self.order_total)
-        print(total)
-
-    def Apply_Discount(self):
+    def Apply_Discount(sub_total):
         # 20% DISCOUNT
-        self.__Apply_Discount()
-
-
-    # PRIVATE METHOD
-    def __Apply_Discount(self):
-        # 20% DISCOUNT
-        discount_total = self.order_total * .20
-        discount_total = self.order_total - discount_total
-        discount_total = "DISCOUNT TOTAL: ${:.2f}".format(discount_total)
-        print(discount_total)
+        discount_total = float(sub_total) * .20
+        discount_total = float(sub_total) - float(discount_total)
+        discount_total_string = "DISCOUNT TOTAL: ${:.2f}".format(discount_total)
+        print(discount_total_string)
         print("\n")
+        return discount_total
 
 
-    def Credit_Card_Payment(self):
+    def Charge_Credit_Card(Total):
         # 4-digit number (Mock-credit card)
+        print("\n")
         credit_card = int(input("Credit Card : "))
         if type(credit_card) == int:
             time.sleep(1)
@@ -143,46 +138,41 @@ class Place_Order():
             time.sleep(2)
             print("Success - Charge Authorized")
             print("\n")
+            print(f"Your total of ${Total} has been charged.")
+            print("\n")
             print("Thank you for your support and enjoy your meal! We hope to see you soon!")
             print("\n")
+        return True
 
 
 
 Menu = Menu()
 Menu.print_menu()
 
-Place_Order()
+Order()
+Updated_Input_Order = Order.Input_Order()
 
-Updated_Order_Intake = Place_Order.Order_Intake()
 
-
-#print("\n")
 ready_to_order = input("Review Order : (Y/N) ")
 while ready_to_order != "Y":
     ready_to_order = input("Review Order : (Y/N) ")
 
-#print(Updated_Order_Intake)
-Place_Order.List_Order(Updated_Order_Intake)
 
-
+sub_total = Order.List_Order(Updated_Input_Order)
 checkout_total = input("Checkout Total : (Y/N) ")
 try:
     while checkout_total != "Y":
         checkout_total = input("Checkout Total : (Y/N) ")
-    #Place_Order = Place_Order()
-    #Place_Order.Print_Total()
     discount_code = input("DISCOUNT CODE : ")
     if discount_code == "GA20":
         print("\n20% Discount Applied")
-        Place_Order.Apply_Discount()
-        Place_Order.Credit_Card_Payment()
+        Discounted_Amount = Order.Apply_Discount(sub_total)
+        Success = Order.Charge_Credit_Card(Discounted_Amount)
     elif discount_code != "GA20": 
-        Place_Order.Print_Total()
-        Place_Order.Credit_Card_Payment()
+        print("\nNo discount applied.")
+        Success = Order.Charge_Credit_Card(sub_total)
 except ValueError:
     checkout_total = input("Checkout Total : ")
-
-
 
 
 
